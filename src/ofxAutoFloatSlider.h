@@ -1,7 +1,5 @@
-// 
-
-#ifndef ofxAutoFloatSlider_hpp
-#define ofxAutoFloatSlider_hpp
+#ifndef ofxAutoFloatSlider_h
+#define ofxAutoFloatSlider_h
 
 #include "ofMain.h"
 #include "ofxGui.h"
@@ -17,12 +15,26 @@ public:
     
     float speed = 1;
     updateMode mode = STOP;
+    bool bUpdateAuto = true;
     
     ofxAutoFloatSlider() {
         setFillColor(ofColor(80, 80, 180));
+        setUpdateAuto(true);
     }
     
-    ~ofxAutoFloatSlider() {}
+    ~ofxAutoFloatSlider() {
+        removeEventHooks();
+    }
+    
+    void setUpdateAuto(bool _auto) {
+        if (_auto) {
+            addEventHooks();
+            bUpdateAuto = true;
+        } else {
+            removeEventHooks();
+            bUpdateAuto = false;
+        }
+    }
     
     void setSpeed(float _speed) {
         speed = _speed;
@@ -31,6 +43,22 @@ public:
     void reset() {
         value = getMin();
         mode = STOP;
+    }
+    
+    void addEventHooks(ofCoreEvents* eventHooks = nullptr) {
+        if ( eventHooks == nullptr ){
+            eventHooks = &ofEvents();
+        }else{
+            removeEventHooks(&ofEvents());
+        }
+        ofAddListener(eventHooks->update, this, &ofxAutoFloatSlider::updateAuto, OF_EVENT_ORDER_BEFORE_APP-10);
+    }
+    
+    void removeEventHooks(ofCoreEvents* eventHooks = nullptr) {
+        if ( eventHooks == nullptr ){
+            eventHooks = &ofEvents();
+        }
+        ofRemoveListener(eventHooks->update, this, &ofxAutoFloatSlider::updateAuto, OF_EVENT_ORDER_BEFORE_APP-10);
     }
     
     void update(float dt) {
@@ -59,8 +87,10 @@ public:
         }
     }
     
-    void update() {
-        this->update(ofGetLastFrameTime());
+    void updateAuto(ofEventArgs &d) {
+        if (bUpdateAuto) {
+            this->update(ofGetLastFrameTime());
+        }
     }
     
     float getRate() {
@@ -121,4 +151,4 @@ protected:
     
 };
 
-#endif /* ofxAutoFloatSlider_hpp */
+#endif /* ofxAutoFloatSlider_h */

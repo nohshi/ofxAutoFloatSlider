@@ -26,11 +26,6 @@ void ofApp::setup(){
     gui.add(autoSlider.setup("autoSlider", 0, 0, 1));
     autoSlider.speed = 1;
 }
-// update()を呼ぶ必要があります
-// you need to call update()
-void ofApp::update(){
-    autoSlider.update();
-}
 //
 void ofApp::draw(){
     gui.draw();

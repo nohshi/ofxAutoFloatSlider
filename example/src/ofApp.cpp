@@ -12,7 +12,6 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    autoSlider.update();
     cout << autoSlider.getRate() << endl;
 }
 
