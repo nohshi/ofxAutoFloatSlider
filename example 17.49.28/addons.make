@@ -1,2 +1,0 @@
-ofxAutoFloatSlider
-ofxGui
