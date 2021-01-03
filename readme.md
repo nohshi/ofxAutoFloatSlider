@@ -14,8 +14,8 @@ It has been tested with openFrameworks v0.10.1.
 
 # usage 使い方
 ```
-// ほぼofxFloatSliderと同様に使用します。自動で動かすためにupdate()を必要とします。
-// It is used almost the same way as ofxFloatSlider, and requires update() to run automatically.
+// ほぼofxFloatSliderと同様に使用します。
+// It is used almost the same way as ofxFloatSlider.
 
 #include "ofxAutoFloatSlider.h"
 
